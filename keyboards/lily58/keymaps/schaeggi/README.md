@@ -9,6 +9,7 @@
     qmk flash -kb lily58 -km schaeggi -bl avrdude-split-left
     qmk flash -kb lily58 -km schaeggi -bl avrdude-split-right
     
+(Elite-C Bootloader:)
     qmk flash -kb lily58 -km schaeggi -bl dfu-split-left
     qmk flash -kb lily58 -km schaeggi -bl dfu-split-right
     

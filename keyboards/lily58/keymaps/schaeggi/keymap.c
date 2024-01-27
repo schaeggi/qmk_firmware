@@ -1,21 +1,41 @@
- /* Copyright 2020 Naoki Katahira
-  *
-  * This program is free software: you can redistribute it and/or modify
-  * it under the terms of the GNU General Public License as published by
-  * the Free Software Foundation, either version 2 of the License, or
-  * (at your option) any later version.
-  *
-  * This program is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * GNU General Public License for more details.
-  *
-  * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  */
-
 #include QMK_KEYBOARD_H
 #include <stdio.h>
+
+
+// ------------------ DEVTEST START ----------------------------- //
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_TAP,
+    TD_DOUBLE_HOLD,
+    TD_DOUBLE_SINGLE_TAP, // Send two single taps
+    TD_TRIPLE_TAP,
+    TD_TRIPLE_HOLD
+} td_state_t;
+
+typedef struct {
+    bool is_press_action;
+    td_state_t state;
+} td_tap_t;
+
+// Tap dance enums
+enum {
+    X_CTL,
+    SOME_OTHER_DANCE
+};
+
+td_state_t cur_dance(tap_dance_state_t *state);
+
+// For the x tap dance. Put it here so it can be used in any keymap
+void x_finished(tap_dance_state_t *state, void *user_data);
+void x_reset(tap_dance_state_t *state, void *user_data);
+
+// ------------------ DEVTEST END ----------------------------- //
+
+
+
 
 // Tap Dance declarations
 enum {
@@ -154,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  *
  *  *(EX) ... LAlt + F4
- *  *(TM) ... LCtl + LAlt + Del
+ *  *(TM) ... LCtl + LAlt + Del  LCA(KC_DEL)
  *  *GoDn ... Go to Desktop n (xfce only)
  *  *MtP/MtN ... Move active window to Previous/Next desktop (xfce only)
  *  *(MP) ... Media play/pause
@@ -165,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [3] = LAYOUT(
   LALT(KC_F4),  LCTL(KC_F1),  LCTL(KC_F2), LCTL(KC_F3),  LCA(KC_HOME),  LCA(KC_END),                         KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  CC_DRST,
-  LCA(KC_DEL),  MEH(KC_Q),    KC_MAIL,     KC_MYCM,      MEH(KC_P),     MEH(KC_B),                           KC_BTN1, KC_BTN2, KC_NO,   KC_NO,   KC_NO,  KC_NO,
+  TD(X_CTL),  MEH(KC_Q),    KC_MAIL,     KC_MYCM,      MEH(KC_P),     MEH(KC_B),                           KC_BTN1, KC_BTN2, KC_NO,   KC_NO,   KC_NO,  KC_NO,
   KC_VOLU,      MEH(KC_A),    MEH(KC_R),   MEH(KC_S),    MEH(KC_T),     MEH(KC_G),                           KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  MEH(KC_Q),
   KC_VOLD,      KC_BTN3,      MEH(KC_X),   KC_WHOM,      KC_CALC,       MEH(KC_V),    CC_WPDT,    CC_WNDT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  DF(4),
                                            KC_MPLY,      KC_TRNS,       KC_TRNS,      KC_TRNS,    KC_TRNS,   KC_NO,   KC_NO,   KC_NO
@@ -209,4 +229,55 @@ const key_override_t** key_overrides = (const key_override_t*[]){
     &slash_key_override,
     &backspace_key_override,
     NULL
+};
+
+
+// ------------------ DEVTEST START ----------------------------- //
+td_state_t cur_dance(tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
+        else return TD_SINGLE_HOLD;
+    } else if (state->count == 2) {
+        if (state->interrupted) return TD_DOUBLE_SINGLE_TAP;
+        else if (state->pressed) return TD_DOUBLE_HOLD;
+        else return TD_DOUBLE_TAP;
+    }
+    if (state->count == 3) {
+        if (state->interrupted || !state->pressed) return TD_TRIPLE_TAP;
+        else return TD_TRIPLE_HOLD;
+    } else return TD_UNKNOWN;
+}
+
+// Create an instance of 'td_tap_t' for the 'x' tap dance.
+static td_tap_t xtap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+
+void x_finished(tap_dance_state_t *state, void *user_data) {
+    xtap_state.state = cur_dance(state);
+    switch (xtap_state.state) {
+        case TD_SINGLE_TAP: register_code(KC_ESC); break;
+        case TD_SINGLE_HOLD: register_code(KC_LCTL); break;
+        case TD_DOUBLE_TAP: register_code(KC_LALT); register_code(KC_TAB); break;
+        case TD_DOUBLE_HOLD: register_code(KC_LALT); break;
+        case TD_DOUBLE_SINGLE_TAP: tap_code(KC_X); register_code(KC_X); break;
+        default: break;
+    }
+}
+
+void x_reset(tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state.state) {
+        case TD_SINGLE_TAP: unregister_code(KC_ESC); break;
+        case TD_SINGLE_HOLD: unregister_code(KC_LCTL); break;
+        case TD_DOUBLE_TAP: unregister_code(KC_LALT); unregister_code(KC_TAB); break;
+        case TD_DOUBLE_HOLD: unregister_code(KC_LALT); break;
+        case TD_DOUBLE_SINGLE_TAP: unregister_code(KC_X); break;
+        default: break;
+    }
+    xtap_state.state = TD_NONE;
+}
+
+tap_dance_action_t tap_dance_actions_test[] = {
+    [X_CTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset)
 };

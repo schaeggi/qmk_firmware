@@ -27,7 +27,7 @@
         "pin": "D3"
     },
     "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
