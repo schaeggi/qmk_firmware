@@ -36,4 +36,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USB_POLLING_INTERVAL_MS 5  // set the USB polling rate in milliseconds; default is 10
 
 // #define QUICK_TAP_TERM 0
-// #define TAPPING_TERM 100
+#define TAPPING_TERM 250
