@@ -80,7 +80,7 @@ tap_dance_action_t tap_dance_actions[] = {
 
 // custom keycode definitions
 enum custom_keycodes {
-    // DRAG_SCROLL = SAFE_RANGE,
+    DRAG_SCROLL = SAFE_RANGE,
     CC_WPDT, // = SAFE_RANGE,
     CC_WNDT,
     CC_NDSH,
@@ -98,8 +98,16 @@ enum custom_keycodes {
     CC_MOV3 = TD(MOVE_TO_3),
 };
 
+// Modify these values to adjust the scrolling speed
+#define SCROLL_DIVISOR_H 12.0
+#define SCROLL_DIVISOR_V 12.0
 
-// bool set_scrolling = true;
+// Variables to store accumulated scroll values
+float scroll_accumulated_h = 0;
+float scroll_accumulated_v = 0;
+
+
+bool set_scrolling = true;
 
 // report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 //     if (set_scrolling) {
@@ -110,6 +118,30 @@ enum custom_keycodes {
 //     }
 //     return mouse_report;
 // }
+
+// Function to handle mouse reports and perform drag scrolling
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    // Check if drag scrolling is active
+    if (set_scrolling) {
+        // Calculate and accumulate scroll values based on mouse movement and divisors
+        scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
+        scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+
+        // Assign integer parts of accumulated scroll values to the mouse report
+        mouse_report.h = (int8_t)scroll_accumulated_h;
+        mouse_report.v = (int8_t)scroll_accumulated_v;
+
+        // Update accumulated scroll values by subtracting the integer parts
+        scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
+        scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+
+        // Clear the X and Y values of the mouse report
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+    return mouse_report;
+}
+
 
 // https://docs.qmk.fm/#/feature_macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -135,16 +167,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-        // case DRAG_SCROLL:
-        //     if (record->event.pressed) {
-        //         set_scrolling = !set_scrolling;
-        //     } else {
-        //     }
-        //     break;
+        case DRAG_SCROLL:
+            if (record->event.pressed) {
+                set_scrolling = !set_scrolling;
+            } else {
+            }
+            break;
     }
     return true;
 };
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

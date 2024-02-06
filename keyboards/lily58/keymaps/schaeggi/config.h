@@ -41,3 +41,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Setup trackball */
 // #define POINTING_DEVICE_LEFT
 #define POINTING_DEVICE_ROTATION_90
+#define POINTING_DEVICE_INVERT_Y
