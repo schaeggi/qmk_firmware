@@ -77,7 +77,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [MOVE_TO_3] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, move_window_desktop3_register, move_window_desktop3_reset),   
 };
 
-
 // custom keycode definitions
 enum custom_keycodes {
     DRAG_SCROLL = SAFE_RANGE,
@@ -107,17 +106,8 @@ float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
 
 
-bool set_scrolling = true;
+bool set_scrolling = true;  // TODO: Wert per Tastendruck ändern?
 
-// report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-//     if (set_scrolling) {
-//         mouse_report.h = mouse_report.x;
-//         mouse_report.v = mouse_report.y;
-//         mouse_report.x = 0;
-//         mouse_report.y = 0;
-//     }
-//     return mouse_report;
-// }
 
 // Function to handle mouse reports and perform drag scrolling
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
