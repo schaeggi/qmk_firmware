@@ -80,7 +80,8 @@ tap_dance_action_t tap_dance_actions[] = {
 
 // custom keycode definitions
 enum custom_keycodes {
-    CC_WPDT = SAFE_RANGE,
+    // DRAG_SCROLL = SAFE_RANGE,
+    CC_WPDT, // = SAFE_RANGE,
     CC_WNDT,
     CC_NDSH,
     CC_STC = TD(SHIFT_TO_CAPS),
@@ -97,6 +98,18 @@ enum custom_keycodes {
     CC_MOV3 = TD(MOVE_TO_3),
 };
 
+
+// bool set_scrolling = true;
+
+// report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+//     if (set_scrolling) {
+//         mouse_report.h = mouse_report.x;
+//         mouse_report.v = mouse_report.y;
+//         mouse_report.x = 0;
+//         mouse_report.y = 0;
+//     }
+//     return mouse_report;
+// }
 
 // https://docs.qmk.fm/#/feature_macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -121,6 +134,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
             }
             break;
+
+        // case DRAG_SCROLL:
+        //     if (record->event.pressed) {
+        //         set_scrolling = !set_scrolling;
+        //     } else {
+        //     }
+        //     break;
     }
     return true;
 };
