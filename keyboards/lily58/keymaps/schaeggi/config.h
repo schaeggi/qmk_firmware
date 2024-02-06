@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5  
 
 /* Select hand configuration */
-#define MASTER_LEFT
-// #define MASTER_RIGHT
+// #define MASTER_LEFT
+#define MASTER_RIGHT
 // #define EE_HANDS
 
 /* Change SpaceCadet Control-Brackets to DE layout */
@@ -37,3 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 250
+
+/* Setup trackball */
+// #define POINTING_DEVICE_LEFT
+#define POINTING_DEVICE_ROTATION_90

@@ -1,8 +1,8 @@
 {
     "keyboard_name": "Lily58",
-    "manufacturer": "liliums",
+    "manufacturer": "Schäggi / liliums",
     "url": "",
-    "maintainer": "liliums",
+    "maintainer": "Schäggi",
     "usb": {
         "vid": "0x04D8",
         "pid": "0xEB2D",

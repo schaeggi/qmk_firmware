@@ -11,6 +11,8 @@ SPACE_CADET_ENABLE = yes
 EXTRAKEY_ENABLE = yes        # Audio control and System control
 MOUSEKEY_ENABLE = yes        # Mouse keys
 TAP_DANCE_ENABLE = yes
+POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = pimoroni_trackball
 
 # LTO_ENABLE = yes  # link time optimization; compilation takes longer, but makes hex file smaller
 
