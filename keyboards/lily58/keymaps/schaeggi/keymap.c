@@ -80,7 +80,7 @@ tap_dance_action_t tap_dance_actions[] = {
 // custom keycode definitions
 enum custom_keycodes {
     DRAG_SCROLL = SAFE_RANGE,
-    CC_WPDT, // = SAFE_RANGE,
+    CC_WPDT,
     CC_WNDT,
     CC_NDSH,
     CC_STC = TD(SHIFT_TO_CAPS),
@@ -166,6 +166,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 };
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Enable set_scrolling if the current layer is layer 3
+    if (get_highest_layer(state) == 3) {
+        set_scrolling = false;
+    }
+    else {
+        set_scrolling = true;
+    }
+    return state;
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
