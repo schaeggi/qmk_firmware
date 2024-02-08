@@ -106,7 +106,7 @@ float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
 
 
-bool set_scrolling = true;  // TODO: Wert per Tastendruck ändern?
+bool set_scrolling = true;
 
 
 // Function to handle mouse reports and perform drag scrolling
@@ -169,8 +169,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Enable set_scrolling if the current layer is layer 3
-    if (get_highest_layer(state) == 3) {
-        set_scrolling = false;
+    if (get_highest_layer(state) == 3) {  
+        set_scrolling = false;  // TODO: somehow invert y axis
     }
     else {
         set_scrolling = true;
@@ -200,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,  KC_F,    KC_P,  KC_B,                        KC_J,    KC_L,    KC_U,    KC_Y,    KC_NUHS, KC_DEL,
   KC_LSFT, KC_A,    KC_R,  KC_S,    KC_T,  KC_G,                        KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_ENTER,
   SC_LCPO, KC_Z,    KC_X,  KC_D,    KC_C,  KC_V,  KC_ENTER,   KC_SPC,   KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_PSLS, SC_RCPC,
-                           KC_LALT, MO(3), TT(2), KC_SPC,     SC_SENT,  MO(1),   KC_LGUI, RALT_T(KC_APP)  // FIXME: CC_L1DS instead of MO(1) breaks CC_BRAK / CC_BRAC
+                           KC_LALT, MO(3), TT(2), KC_SPC,     SC_SENT,  MO(1),   KC_LGUI, RALT_T(KC_APP)
 ),
 
 /* Layer 1 - Special characters
@@ -433,7 +433,7 @@ void braces_double_register(tap_dance_state_t *state, void *user_data) {
 void braces_double_reset(tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case TD_SINGLE_TAP: unregister_code(KC_RALT); unregister_code(KC_7); break;
-        case TD_DOUBLE_TAP: layer_off(1); unregister_code(KC_RALT); unregister_code(KC_0); break;  // TODO: test with layer_off(1)
+        case TD_DOUBLE_TAP: layer_off(1); unregister_code(KC_RALT); unregister_code(KC_0); break;
         default: break;
     }
     xtap_state.state = TD_NONE;
