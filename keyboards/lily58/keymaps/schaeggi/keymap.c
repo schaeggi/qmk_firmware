@@ -5,13 +5,15 @@
 
 // Combos - multiple keys pressed at the same time
 const uint16_t PROGMEM combo_fp[] = {KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM combo_wp[] = {KC_P, KC_W, COMBO_END};
 const uint16_t PROGMEM combo_st[] = {KC_S, KC_T, COMBO_END};
 // const uint16_t PROGMEM combo_rt[] = {KC_R, KC_T, COMBO_END};
 const uint16_t PROGMEM combo_ne[] = {KC_N, KC_E, COMBO_END};
 // const uint16_t PROGMEM combo_ni[] = {KC_N, KC_I, COMBO_END};
 // const uint16_t PROGMEM combo_tn[] = {KC_T, KC_N, COMBO_END};
 combo_t key_combos[] = {
-    COMBO(combo_fp, LCTL(KC_BSPC)),
+    COMBO(combo_wp, LCTL(KC_BSPC)),
+    COMBO(combo_fp, KC_BSPC),
     COMBO(combo_st, RSFT(KC_8)),
     // COMBO(combo_rt, KC_BSPC),
     COMBO(combo_ne, RSFT(KC_9)),
@@ -62,7 +64,7 @@ void move_window_desktop3_reset(tap_dance_state_t *state, void *user_data);
 
 // Tap Dance declarations
 enum {
-    SHIFT_TO_CAPS = SAFE_RANGE,
+    SHIFT_TO_CAPS, // = SAFE_RANGE,
     DOUBLE_RESET,
     L1_DOUBLE_SHIFT,
     ESC_KILL,
@@ -162,7 +164,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case CC_LITM:
             if (record->event.pressed) {
-                SEND_STRING("- [ ] ");
+                SEND_STRING( SS_TAP(X_SLASH) SS_TAP(X_SPC) SS_RALT(SS_TAP(X_8)) SS_TAP(X_SPC) SS_RALT(SS_TAP(X_9)) SS_TAP(X_SPC) );
             } else {
             }
             break;

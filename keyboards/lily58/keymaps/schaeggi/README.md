@@ -23,3 +23,9 @@ Helios RP2040 Controller:
 Adafruit Kee Boar Controller:
 
     qmk flash -kb lily58 -km schaeggi -e CONVERT_TO=kb2040
+
+# Things to test
+- [ ] combo(s + t) -> backspace
+- [ ] combo(t + r) -> strg + backspace
+- [ ] combo(n + e) -> previous word
+- [ ] combo(n + i) -> next word
