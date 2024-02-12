@@ -19,3 +19,7 @@ Elite-C Bootloader:
 Helios RP2040 Controller:
 
     qmk flash -kb lily58 -km schaeggi -e CONVERT_TO=helios
+
+Adafruit Kee Boar Controller:
+
+    qmk flash -kb lily58 -km schaeggi -e CONVERT_TO=kb2040
