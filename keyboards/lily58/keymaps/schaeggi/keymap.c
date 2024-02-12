@@ -3,6 +3,22 @@
 #include QMK_KEYBOARD_H
 #include <stdio.h>
 
+// Combos - multiple keys pressed at the same time
+const uint16_t PROGMEM combo_fp[] = {KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM combo_st[] = {KC_S, KC_T, COMBO_END};
+// const uint16_t PROGMEM combo_rt[] = {KC_R, KC_T, COMBO_END};
+const uint16_t PROGMEM combo_ne[] = {KC_N, KC_E, COMBO_END};
+// const uint16_t PROGMEM combo_ni[] = {KC_N, KC_I, COMBO_END};
+// const uint16_t PROGMEM combo_tn[] = {KC_T, KC_N, COMBO_END};
+combo_t key_combos[] = {
+    COMBO(combo_fp, LCTL(KC_BSPC)),
+    COMBO(combo_st, RSFT(KC_8)),
+    // COMBO(combo_rt, KC_BSPC),
+    COMBO(combo_ne, RSFT(KC_9)),
+    // COMBO(combo_ni, KC_BSPC),
+    // COMBO(combo_tn, KC_BSPC),    
+};
+
 typedef enum {
     TD_NONE,
     TD_UNKNOWN,
@@ -19,7 +35,6 @@ typedef struct {
     bool is_press_action;
     td_state_t state;
 } td_tap_t;
-
 
 td_state_t cur_dance(tap_dance_state_t *state);
 
@@ -47,7 +62,7 @@ void move_window_desktop3_reset(tap_dance_state_t *state, void *user_data);
 
 // Tap Dance declarations
 enum {
-    SHIFT_TO_CAPS,
+    SHIFT_TO_CAPS = SAFE_RANGE,
     DOUBLE_RESET,
     L1_DOUBLE_SHIFT,
     ESC_KILL,
@@ -80,6 +95,7 @@ tap_dance_action_t tap_dance_actions[] = {
 // custom keycode definitions
 enum custom_keycodes {
     DRAG_SCROLL = SAFE_RANGE,
+    CC_LITM,
     CC_WPDT,
     CC_WNDT,
     CC_NDSH,
@@ -136,6 +152,28 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 // https://docs.qmk.fm/#/feature_macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+
+        case DRAG_SCROLL:
+            if (record->event.pressed) {
+                set_scrolling = !set_scrolling;
+            } else {
+            }
+            break;
+
+        case CC_LITM:
+            if (record->event.pressed) {
+                SEND_STRING("- [ ] ");
+            } else {
+            }
+            break;
+
+        case CC_NDSH:  // FIXME: ndash from alt code (add linux way [ralt] + [-] )
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_5) SS_TAP(X_KP_0)));
+            } else {
+            }
+            break;
+
         case CC_WPDT:  // previous virtual desktop on win10
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_LEFT))));
@@ -146,20 +184,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case CC_WNDT:  // next virtual desktop on win10
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTL(SS_LGUI(SS_TAP(X_RIGHT))));
-            } else {
-            }
-            break;
-
-        case CC_NDSH:  // BUG: ndash from alt code
-            if (record->event.pressed) {
-                SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_5) SS_TAP(X_KP_0)));
-            } else {
-            }
-            break;
-
-        case DRAG_SCROLL:
-            if (record->event.pressed) {
-                set_scrolling = !set_scrolling;
             } else {
             }
             break;
@@ -207,9 +231,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------------.                    ,-----------------------------------------.
  * | ESC  |      |   ²  |   ³  |      |      |                    |      |   {  |   [  |   ]  |   }  |  Bsp |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | Tab  |   @  |   %  |   +  |   (  |  [/] |                    |  {/} |   )  |   Ü  |   $  |   ~  |  Del |
+ * | Tab  |   @  |   %  |   +  |   (  |  {/} |                    |  [/] |   )  |   Ü  |   $  |   ~  |  Del |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | LSft |   ä  |   !  |   ß  |   -  |ndash)|-------.    ,-------|   µ  |   =  |   €  |   ?  |   Ö  | Enter|
+ * | LSft |   ä  |   !  |   ß  |   -  |ndash*|-------.    ,-------|   µ  |   =  |   €  |   ?  |   Ö  | Enter|
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * | LCtl |   <  |   >  |   *  |   _  |   ^  |-------|    |-------|   ´  |   "  |   &  |   °  |   |  | RCtl |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -220,7 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [1] = LAYOUT(
   KC_TRNS, RALT(KC_1),  RALT(KC_2),     RALT(KC_3),    RALT(KC_4),    RALT(KC_5),                              RALT(KC_6), RALT(KC_7),  RALT(KC_8), RALT(KC_9),     RALT(KC_0),    KC_TRNS,
-  KC_TRNS, RALT(KC_Q),  LSFT(KC_5),     KC_RBRC,       RSFT(KC_8),    CC_BRAK,                                 CC_BRAC,    RSFT(KC_9),  CC_UE,      LSFT(KC_4),     RALT(KC_RBRC), KC_TRNS,  // KC_LBRC
+  KC_TRNS, RALT(KC_Q),  LSFT(KC_5),     KC_RBRC,       RSFT(KC_8),    CC_BRAC,                                 CC_BRAK,    RSFT(KC_9),  CC_UE,      LSFT(KC_4),     RALT(KC_RBRC), KC_TRNS,  // KC_LBRC
   KC_TRNS, CC_AE,       LSFT(KC_1),     KC_MINUS,      KC_SLASH,      CC_NDSH,                                 RALT(KC_M), RSFT(KC_0),  RALT(KC_E), LSFT(KC_MINUS), CC_OE,         KC_TRNS, // KC_QUOTE, KC_SCLN
   KC_TRNS, KC_NUBS,     LSFT(KC_NUBS),  LSFT(KC_RBRC), LSFT(KC_SLSH), KC_GRAVE,    KC_TRNS,        KC_TRNS,    KC_EQUAL,   LSFT(KC_2),  LSFT(KC_6), LSFT(KC_GRAVE), RALT(KC_NUBS), KC_TRNS,
                                         KC_TRNS,       KC_TRNS,       KC_TRNS,     KC_TRNS,        KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS
@@ -254,9 +278,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Layer 3 - Shortcuts, Custom config
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * | SC_Q | GoD1 | GoD2 | GoD3 |  MtP |  MtN |                    |      |      |      |      |      | Reset|
+ * | SC_Q | GoD1 | GoD2 | GoD3 |  MtP |  MtN |                    |  LMB |  RMB | SC_8 | SC_9 | SC_0 | Reset|
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | (CC)*| SC_Q | Mail |FileMn| SC_P | SC_B |                    | LMB  | RMB  |      |      |      |      |
+ * | (CC)*| SC_Q | Mail |FileMn| SC_P | SC_B |                    |  -[] |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | (V+)*| SC_A | SC_R | SC_S | SC_T | SC_G |-------.    ,-------| MMB  |      |      |      |      | SC_Q |
  * |------+------+------+------+------+------|  NVD  |    |  PVD  |------+------+------+------+------+------|
@@ -277,9 +301,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [3] = LAYOUT(
-  MEH(KC_Q),      CC_MOV1,    CC_MOV2,     CC_MOV3,      LCA(KC_HOME),  LCA(KC_END),                         MEH(KC_6), MEH(KC_7),  MEH(KC_8),  MEH(KC_9),  MEH(KC_0),  CC_DRST,
-  LCTL(KC_NUHS),  MEH(KC_Q),  MEH(KC_W),   MEH(KC_F),    MEH(KC_P),     MEH(KC_B),                           KC_BTN1,   KC_BTN2,    KC_NO,      KC_NO,      KC_NO,      KC_NO,
-  KC_VOLU,        MEH(KC_A),  MEH(KC_R),   MEH(KC_S),    MEH(KC_T),     MEH(KC_G),                           KC_BTN3,   KC_NO,      KC_NO,      KC_NO,      KC_NO,      MEH(KC_Q),
+  MEH(KC_Q),      CC_MOV1,    CC_MOV2,     CC_MOV3,      LCA(KC_HOME),  LCA(KC_END),                         KC_BTN1, KC_BTN2,  MEH(KC_8),  MEH(KC_9),  MEH(KC_0),  CC_DRST,
+  LCTL(KC_NUHS),  MEH(KC_Q),  MEH(KC_W),   MEH(KC_F),    MEH(KC_P),     MEH(KC_B),                           CC_LITM,   KC_NO,    KC_NO,      KC_NO,      KC_NO,      KC_NO,
+  KC_VOLU,        MEH(KC_A),  MEH(KC_R),   MEH(KC_S),    MEH(KC_T),     MEH(KC_G),                           KC_NO,   KC_NO,      KC_NO,      KC_NO,      KC_NO,      MEH(KC_Q),
   KC_VOLD,        MEH(KC_Y),  MEH(KC_X),   MEH(KC_D),    KC_CALC,       MEH(KC_V),    CC_WPDT,    CC_WNDT,   KC_NO,     KC_NO,      KC_NO,      KC_NO,      KC_NO,      DF(4),
                                            KC_MPLY,      KC_TRNS,       KC_TRNS,      KC_TRNS,    KC_TRNS,   KC_NO,     KC_NO,      KC_NO
   ),
@@ -346,30 +370,6 @@ static td_tap_t xtap_state = {
     .is_press_action = true,
     .state = TD_NONE
 };
-
-// void x_finished(tap_dance_state_t *state, void *user_data) {
-//     xtap_state.state = cur_dance(state);
-//     switch (xtap_state.state) {
-//         case TD_SINGLE_TAP: register_code(KC_ESC); break;
-//         case TD_SINGLE_HOLD: register_code(KC_LCTL); break;
-//         case TD_DOUBLE_TAP: register_code(KC_LALT); register_code(KC_TAB); break;
-//         case TD_DOUBLE_HOLD: register_code(KC_LALT); break;
-//         case TD_DOUBLE_SINGLE_TAP: tap_code(KC_X); register_code(KC_X); break;
-//         default: break;
-//     }
-// }
-
-// void x_reset(tap_dance_state_t *state, void *user_data) {
-//     switch (xtap_state.state) {
-//         case TD_SINGLE_TAP: unregister_code(KC_ESC); break;
-//         case TD_SINGLE_HOLD: unregister_code(KC_LCTL); break;
-//         case TD_DOUBLE_TAP: unregister_code(KC_LALT); unregister_code(KC_TAB); break;
-//         case TD_DOUBLE_HOLD: unregister_code(KC_LALT); break;
-//         case TD_DOUBLE_SINGLE_TAP: unregister_code(KC_X); break;
-//         default: break;
-//     }
-//     xtap_state.state = TD_NONE;
-// }
 
 void l1_double_shift_register(tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
