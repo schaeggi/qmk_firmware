@@ -278,13 +278,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Layer 3 - Shortcuts, Custom config
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * | SC_Q | GoD1 | GoD2 | GoD3 |  MtP |  MtN |                    |  LMB |  RMB | SC_8 | SC_9 | SC_0 | Reset|
+ * | SC_Q | GoD1 | GoD2 | GoD3 |  MtP |  MtN |                    | SC_6 | SC_7 | SC_8 | SC_9 | SC_0 | Reset|
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | (CC)*| SC_Q | Mail |FileMn| SC_P | SC_B |                    |  -[] |      |      |      |      |      |
+ * | (CC)*| SC_Q | Mail |FileMn| SC_P | SC_B |                    |  -[] | LMB  | M_UP | RMB  |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | (V+)*| SC_A | SC_R | SC_S | SC_T | SC_G |-------.    ,-------| MMB  |      |      |      |      | SC_Q |
+ * | (V+)*| SC_A | SC_R | SC_S | SC_T | SC_G |-------.    ,-------|      | M_LT | M_DN | M_RT |      | SC_Q |
  * |------+------+------+------+------+------|  NVD  |    |  PVD  |------+------+------+------+------+------|
- * | (V-)*|      | SC_X |  Web | Calc | SC_V |-------|    |-------|      |      |      |      |      |      |
+ * | (V-)*|      | SC_X |  Web | Calc | SC_V |-------|    |-------|      |      | MMB  |      |      |TgLay4|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | (MP)*| Layer3|Layer2| /Space  /       \Enter \  |      |     |      |
  *                   |      |      |      |/       /         \+LSft \ |      |      |      |
@@ -301,11 +301,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [3] = LAYOUT(
-  MEH(KC_Q),      CC_MOV1,    CC_MOV2,     CC_MOV3,      LCA(KC_HOME),  LCA(KC_END),                         KC_BTN1, KC_BTN2,  MEH(KC_8),  MEH(KC_9),  MEH(KC_0),  CC_DRST,
-  LCTL(KC_NUHS),  MEH(KC_Q),  MEH(KC_W),   MEH(KC_F),    MEH(KC_P),     MEH(KC_B),                           CC_LITM,   KC_NO,    KC_NO,      KC_NO,      KC_NO,      KC_NO,
-  KC_VOLU,        MEH(KC_A),  MEH(KC_R),   MEH(KC_S),    MEH(KC_T),     MEH(KC_G),                           KC_NO,   KC_NO,      KC_NO,      KC_NO,      KC_NO,      MEH(KC_Q),
-  KC_VOLD,        MEH(KC_Y),  MEH(KC_X),   MEH(KC_D),    KC_CALC,       MEH(KC_V),    CC_WPDT,    CC_WNDT,   KC_NO,     KC_NO,      KC_NO,      KC_NO,      KC_NO,      DF(4),
-                                           KC_MPLY,      KC_TRNS,       KC_TRNS,      KC_TRNS,    KC_TRNS,   KC_NO,     KC_NO,      KC_NO
+  MEH(KC_Q),      CC_MOV1,    CC_MOV2,     CC_MOV3,      LCA(KC_HOME),  LCA(KC_END),                         MEH(KC_6), MEH(KC_7),  MEH(KC_8),  MEH(KC_9),  MEH(KC_0),  CC_DRST,
+  LCTL(KC_NUHS),  MEH(KC_Q),  MEH(KC_W),   MEH(KC_F),    MEH(KC_P),     MEH(KC_B),                           CC_LITM, KC_BTN1,  KC_MS_U,    KC_BTN2,    KC_WH_U,    KC_NO,
+  KC_VOLU,        MEH(KC_A),  MEH(KC_R),   MEH(KC_S),    MEH(KC_T),     MEH(KC_G),                           KC_NO,   KC_MS_L,  KC_MS_D,    KC_MS_R,    KC_WH_D,    MEH(KC_Q),
+  KC_VOLD,        MEH(KC_Y),  MEH(KC_X),   MEH(KC_D),    KC_CALC,       MEH(KC_V),    CC_WPDT,    CC_WNDT,   KC_NO,   KC_NO,    KC_BTN3,    KC_NO,      KC_NO,      DF(4),
+                                           KC_MPLY,      KC_TRNS,       KC_TRNS,      KC_TRNS,    KC_TRNS,   KC_NO,   KC_NO,    KC_NO
   ),
 
 /* Layer 4 - Gaming Layer
