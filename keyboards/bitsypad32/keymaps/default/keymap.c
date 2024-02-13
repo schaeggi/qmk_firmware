@@ -6,12 +6,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ┌─────────┬──────┬──────┐
  * │ Bookmark│ Next │ Prev │
  * ├─────────┼──────┼──────┤
- * │ Comment │      │      │
+ * │ Comment │ Prev.│ Edit │
  * └─────────┴──────┴──────┘
  */
     [0] = LAYOUT_ortho_2x3(
-        LCA(KC_K),        LCA(KC_L),         KC_F,
-        LCTL(KC_NUHS),    LCTL(KC_KP_SLASH), KC_F
+        MEH(KC_T),        MEH(KC_B),         MEH(KC_G),
+        LCTL(KC_NUHS),    LCTL(KC_KP_SLASH), KC_NO
     ),
 /* DaVinci Resolve Layer
  * ┌───┬───┬───┐
