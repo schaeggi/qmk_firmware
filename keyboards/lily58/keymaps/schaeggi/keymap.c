@@ -7,18 +7,21 @@
 const uint16_t PROGMEM combo_fp[] = {KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM combo_wp[] = {KC_P, KC_W, COMBO_END};
 const uint16_t PROGMEM combo_st[] = {KC_S, KC_T, COMBO_END};
-// const uint16_t PROGMEM combo_rt[] = {KC_R, KC_T, COMBO_END};
+const uint16_t PROGMEM combo_rt[] = {KC_R, KC_T, COMBO_END};
 const uint16_t PROGMEM combo_ne[] = {KC_N, KC_E, COMBO_END};
-// const uint16_t PROGMEM combo_ni[] = {KC_N, KC_I, COMBO_END};
+const uint16_t PROGMEM combo_ni[] = {KC_N, KC_I, COMBO_END};
+const uint16_t PROGMEM combo_lu[] = {KC_L, KC_U, COMBO_END};
+const uint16_t PROGMEM combo_lz[] = {KC_L, KC_Z, COMBO_END};
 // const uint16_t PROGMEM combo_tn[] = {KC_T, KC_N, COMBO_END};
 combo_t key_combos[] = {
-    COMBO(combo_wp, LCTL(KC_BSPC)),
     COMBO(combo_fp, KC_BSPC),
-    COMBO(combo_st, RSFT(KC_8)),
-    // COMBO(combo_rt, KC_BSPC),
-    COMBO(combo_ne, RSFT(KC_9)),
-    // COMBO(combo_ni, KC_BSPC),
-    // COMBO(combo_tn, KC_BSPC),    
+    COMBO(combo_wp, LCTL(KC_BSPC)),
+    COMBO(combo_st, KC_BSPC), // RSFT(KC_8)
+    COMBO(combo_rt, LCTL(KC_BSPC)),
+    COMBO(combo_ne, LCTL(KC_LEFT)), // RSFT(KC_9)
+    COMBO(combo_ni, LCTL(KC_RIGHT)),
+    COMBO(combo_lu, KC_NO),
+    COMBO(combo_lz, KC_NO),
 };
 
 typedef enum {
@@ -278,15 +281,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS,    KC_TRNS,  KC_KP_0,     KC_KP_ASTERISK, KC_KP_SLASH
 ),
 
-/* Layer 3 - Shortcuts, Custom config
+/* Layer 3 - Shortcuts, Custom config, Mouse Layer
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | SC_Q | GoD1 | GoD2 | GoD3 |  MtP |  MtN |                    | SC_6 | SC_7 | SC_8 | SC_9 | SC_0 | Reset|
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | (CC)*| SC_Q | Mail |FileMn| SC_P | SC_B |                    |  -[] | LMB  | M_UP | RMB  |      |      |
+ * | (CC)*| SC_Q | SC_W | SC_F | SC_P | SC_B |                    |  -[] | LMB  | M_UP | RMB  | ScrUp|      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | (V+)*| SC_A | SC_R | SC_S | SC_T | SC_G |-------.    ,-------|      | M_LT | M_DN | M_RT |      | SC_Q |
+ * | (V+)*| SC_A | SC_R | SC_S | SC_T | SC_G |-------.    ,-------|      | M_LT | M_DN | M_RT | ScrDn| SC_Q |
  * |------+------+------+------+------+------|  NVD  |    |  PVD  |------+------+------+------+------+------|
- * | (V-)*|      | SC_X |  Web | Calc | SC_V |-------|    |-------|      |      | MMB  |      |      |TgLay4|
+ * | (V-)*| SC_Y | SC_X | SC_D | Calc | SC_V |-------|    |-------|      |      | MMB  |      |      |TgLay4|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | (MP)*| Layer3|Layer2| /Space  /       \Enter \  |      |     |      |
  *                   |      |      |      |/       /         \+LSft \ |      |      |      |

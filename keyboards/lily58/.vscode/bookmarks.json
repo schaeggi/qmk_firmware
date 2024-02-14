@@ -9,27 +9,27 @@
 					"label": "Combos"
 				},
 				{
-					"line": 40,
+					"line": 43,
 					"column": 2,
 					"label": "Tap Dance"
 				},
 				{
-					"line": 127,
+					"line": 130,
 					"column": 3,
 					"label": "Trackball Scrolling"
 				},
 				{
-					"line": 151,
+					"line": 154,
 					"column": 0,
 					"label": "Macros"
 				},
 				{
-					"line": 204,
+					"line": 207,
 					"column": 2,
 					"label": "Keymaps"
 				},
 				{
-					"line": 336,
+					"line": 339,
 					"column": 9,
 					"label": "Key Overrides"
 				}
