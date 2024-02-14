@@ -5,23 +5,21 @@
 
 // Combos - multiple keys pressed at the same time
 const uint16_t PROGMEM combo_fp[] = {KC_F, KC_P, COMBO_END};
-const uint16_t PROGMEM combo_wp[] = {KC_P, KC_W, COMBO_END};
+const uint16_t PROGMEM combo_wf[] = {KC_W, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_st[] = {KC_S, KC_T, COMBO_END};
-const uint16_t PROGMEM combo_rt[] = {KC_R, KC_T, COMBO_END};
+// const uint16_t PROGMEM combo_rs[] = {KC_R, KC_S, COMBO_END};
 const uint16_t PROGMEM combo_ne[] = {KC_N, KC_E, COMBO_END};
-const uint16_t PROGMEM combo_ni[] = {KC_N, KC_I, COMBO_END};
+// const uint16_t PROGMEM combo_ei[] = {KC_E, KC_I, COMBO_END};
 const uint16_t PROGMEM combo_lu[] = {KC_L, KC_U, COMBO_END};
-const uint16_t PROGMEM combo_lz[] = {KC_L, KC_Z, COMBO_END};
-// const uint16_t PROGMEM combo_tn[] = {KC_T, KC_N, COMBO_END};
+const uint16_t PROGMEM combo_uz[] = {KC_U, KC_Y, COMBO_END};
+
 combo_t key_combos[] = {
-    COMBO(combo_fp, KC_BSPC),
-    COMBO(combo_wp, LCTL(KC_BSPC)),
-    COMBO(combo_st, KC_BSPC), // RSFT(KC_8)
-    COMBO(combo_rt, LCTL(KC_BSPC)),
-    COMBO(combo_ne, LCTL(KC_LEFT)), // RSFT(KC_9)
-    COMBO(combo_ni, LCTL(KC_RIGHT)),
-    COMBO(combo_lu, KC_NO),
-    COMBO(combo_lz, KC_NO),
+    COMBO(combo_fp, LCTL(KC_DEL)),
+    COMBO(combo_wf, LCTL(KC_BSPC)),
+    COMBO(combo_st, RSFT(KC_8)),
+    COMBO(combo_ne, RSFT(KC_9)),
+    COMBO(combo_lu, LCTL(KC_LEFT)),
+    COMBO(combo_uz, LCTL(KC_RIGHT)),
 };
 
 typedef enum {
