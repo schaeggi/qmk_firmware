@@ -8,9 +8,15 @@ const uint16_t PROGMEM combo_fp[] = {KC_F, KC_P, COMBO_END};
 const uint16_t PROGMEM combo_wf[] = {KC_W, KC_F, COMBO_END};
 
 const uint16_t PROGMEM combo_st[] = {KC_S, KC_T, COMBO_END};
+<<<<<<< HEAD
 const uint16_t PROGMEM combo_rt[] = {KC_R, KC_T, COMBO_END};
 const uint16_t PROGMEM combo_tg[] = {KC_T, KC_G, COMBO_END};
 
+=======
+const uint16_t PROGMEM combo_tg[] = {KC_T, KC_G, COMBO_END};
+const uint16_t PROGMEM combo_ne[] = {KC_N, KC_E, COMBO_END};
+const uint16_t PROGMEM combo_mn[] = {KC_M, KC_N, COMBO_END};
+>>>>>>> schaeggi
 const uint16_t PROGMEM combo_lu[] = {KC_L, KC_U, COMBO_END};
 const uint16_t PROGMEM combo_uz[] = {KC_U, KC_Y, COMBO_END};
 
@@ -21,11 +27,18 @@ const uint16_t PROGMEM combo_mn[] = {KC_M, KC_N, COMBO_END};
 combo_t key_combos[] = {
     COMBO(combo_fp, LCTL(KC_DEL)),
     COMBO(combo_wf, LCTL(KC_BSPC)),
+<<<<<<< HEAD
     
     COMBO(combo_st, KC_LEFT),
     COMBO(combo_rt, LCTL(KC_LEFT)),
     COMBO(combo_tg, RSFT(KC_8)),
     
+=======
+    COMBO(combo_st, RSFT(KC_8)),
+    COMBO(combo_ne, RSFT(KC_9)),
+    COMBO(combo_tg, RALT(KC_7)),
+    COMBO(combo_mn, RALT(KC_0)),
+>>>>>>> schaeggi
     COMBO(combo_lu, LCTL(KC_LEFT)),
     COMBO(combo_uz, LCTL(KC_RIGHT)),
 
