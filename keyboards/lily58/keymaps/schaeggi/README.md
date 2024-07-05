@@ -24,8 +24,33 @@ Adafruit Kee Boar Controller:
 
     qmk flash -kb lily58 -km schaeggi -e CONVERT_TO=kb2040
 
-# Things to test
-- [ ] combo(s + t) -> backspace (delete last character)
-- [ ] combo(t + r) -> strg + backspace (delete last word)
-- [ ] combo(n + e) -> strg + arrow_left (previous word)
-- [ ] combo(n + i) -> strg + arrow_right (next word)
+
+# Features
+
+## Combos
+
+[s] + [t] ... left (KC_LEFT)
+[r] + [t] ... left word
+[r] + [s] ... backspace
+[w] + [f] ... backspace word
+[n] + [e] ... right (KC_RIGHT)
+[n] + [i] ... left word
+[e] + [i] ... delete
+[u] + [z] ... delete word
+
+[t] + [g] ... (
+[m] + [n] ... )
+
+## Tap dance
+
+[L2]*5              ... Move to Layer 2
+[L1] + [o]*2        ... Ö
+[L1] + [a]*2        ... Ä
+[L1] + [u]*2        ... Ü
+[L2] + [Lshift]*2   ...Caps Lock
+[L2] + [Esc]*2      ... Kill (Alt+F4)
+[L1] + [J]*2        ... ]
+[L1] + [B]*2        ... }
+
+
+
