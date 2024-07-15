@@ -240,10 +240,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
  [_ALPHAS] = LAYOUT(
     KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-    KC_TAB,   KC_Q,   KC_W,    KC_F,    KC_P,    KC_B,                        KC_J,    KC_L,    KC_U,    KC_Z,    KC_NUHS, KC_DEL,
+    KC_TAB,   KC_Q,   KC_W,    KC_F,    KC_P,    KC_B,                        KC_J,    KC_L,    KC_U,    KC_Y,    KC_NUHS, KC_DEL,
     KC_LSFT,  KC_A,   KC_R,    KC_S,    KC_T,    KC_G,                        KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_ENT,
-    KC_LCTL,  KC_Y,   KC_X,    KC_D,    KC_C,    KC_V,    KC_ENT,   KC_SPC,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RCTL,
-                      KC_LALT, KC_LGUI, L3,      L2,      KC_SPC,   SC_SENT,  L1,      KC_RGUI, KC_RALT, L5
+    KC_LCTL,  KC_Z,   KC_X,    KC_D,    KC_C,    KC_V,    KC_ENT,   KC_SPC,   KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RCTL,
+                      KC_LALT, KC_LGUI, L3,      L2,      KC_SPC,   SC_SENT,  L1,      KC_RGUI, KC_RALT, L4
 ),
 
 /* Layer 1 - SPECIAL CHARACTERS
@@ -273,7 +273,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |   `  |   1  |   2  |   3  |   4  |   5  |                    |      |   7  |   8  |   9  | F11  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|     |   4  |   5  |   6  | F12  |      |
+ * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|     |   4  |   5  |   6  | F12  |      |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |  F7  |  F8  |  F9  | F10  | F11  | F12  |-------|    |-------|      |   1  |   2  |   3  |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -285,7 +285,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LCA(KC_DEL), KC_INS,  KC_HOME,    KC_UP,      KC_END,     KC_PGUP,                      KC_KP_PLUS,  KC_KP_7, KC_KP_8, KC_KP_9, KC_F11,   KC_TRNS,
     CC_STC,      KC_DEL,  KC_LEFT,    KC_DOWN,    KC_RGHT,    KC_PGDN,                      KC_KP_MINUS, KC_KP_4, KC_KP_5, KC_KP_6, KC_F12,   KC_TRNS,
     KC_TRNS,     KC_PSCR, LCTL(KC_X), LCTL(KC_A), LCTL(KC_C), LCTL(KC_V), QK_LOCK, KC_NUM , KC_KP_0,     KC_KP_1, KC_KP_2, KC_KP_3, KC_COMMA, KC_TRNS,
-                          KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, KC_KP_0,     KC_KP_ASTERISK, KC_KP_SLASH, KC_TRNS
+                          KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,     KC_KP_ASTERISK, KC_KP_SLASH, KC_TRNS
 ),
 
 /* Layer 3 - ADVANCED LAYER
@@ -294,7 +294,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |   `  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|      | Left | Down |  Up  |Right |      |
+ * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|      | Left | Down |  Up  |Right |      |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |  F7  |  F8  |  F9  | F10  | F11  | F12  |-------|    |-------|   +  |   -  |   =  |   [  |   ]  |   \  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -315,7 +315,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |   `  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|      | Left | Down |  Up  |Right |      |
+ * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|      | Left | Down |  Up  |Right |      |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |  F7  |  F8  |  F9  | F10  | F11  | F12  |-------|    |-------|   +  |   -  |   =  |   [  |   ]  |   \  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
